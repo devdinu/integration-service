@@ -40,6 +40,15 @@ def get_response_for_farmer():
         <playtext quality="best">Hello World</playtext>
     </response>
     """
+@get('/record')
+def get_response_for_farmer():
+    return """
+    <?xml version="1.0" encoding="UTF-8"?>
+    <response sid="12345">
+        <playtext quality="best">Please Register your concerns</playtext>
+        <record format="wav" silence="3" maxduration="30" >recorded-file</record>
+    </response>
+    """
 
 @enable_cors
 @post('/payments/<farmer_id>/create')
