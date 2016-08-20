@@ -31,13 +31,19 @@ def send_sms():
 def notify_farmer():
     client.make_call(request.forms.get('to_number'))
 
+@get('/respond')
 def get_response_for_farmer():
     response = twiml.Response().say("Welcome to Fund Farmers", voice='alice')
-    return response
+    return """
+    <?xml version="1.0" encoding="UTF-8"?>
+        <response>
+        <playtext quality="best">Hello World</playtext>
+    </response>
+    """
 
 @enable_cors
 @post('/payments/<farmer_id>/create')
 def create_payment_request(farmer_id):
     return paymentClient.create_request(farmer_id, request.forms.get('amount'), request.forms.get('purpose'))
 
-run(host='localhost', reloader=True, port=8080)
+run(host='0.0.0.0', reloader=True, port=80)
